@@ -66,7 +66,7 @@ export function HomePageClient({
         <header className="p-4 border-b border-border sticky top-0 bg-background/80 backdrop-blur-sm z-10">
           <div className="container mx-auto flex justify-between items-center">
             <Link href="/" passHref>
-                <span className="text-2xl font-bold text-primary cursor-pointer">ChessDB</span>
+                <span className="text-2xl font-bold text-primary cursor-pointer">TheoryDB</span>
             </Link>
           </div>
         </header>
@@ -82,7 +82,7 @@ export function HomePageClient({
         </main>
 
         <footer className="text-center py-4 text-muted-foreground text-sm border-t border-border mt-auto">
-          ChessDB - Train Smarter.
+        TheoryDB - Train Smarter.
         </footer>
       </div>
     );
@@ -93,7 +93,7 @@ export function HomePageClient({
       <header className="p-4 border-b border-border sticky top-0 bg-background/80 backdrop-blur-sm z-10">
         <div className="container mx-auto flex justify-between items-center">
           <Link href="/" passHref>
-             <span className="text-2xl font-bold text-primary cursor-pointer">ChessDB</span>
+             <span className="text-2xl font-bold text-primary cursor-pointer">TheoryDB</span>
           </Link>
         </div>
       </header>
@@ -194,7 +194,7 @@ export function HomePageClient({
       </main>
 
       <footer className="text-center py-4 text-muted-foreground text-sm border-t border-border mt-auto">
-        ChessDB - Train Smarter.
+      TheoryDB - Train Smarter.
       </footer>
     </div>
   );
