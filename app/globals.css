@@ -1,0 +1,118 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light Theme (default) */
+    --background: 0 0% 100%; /* White */
+    --foreground: 222.2 84% 4.9%; /* Dark Gray/Black */
+
+    --muted: 240 4.8% 95.9%; /* Light Gray for muted backgrounds */
+    --muted-foreground: 240 3.8% 46.1%; /* Medium Gray for muted text */
+
+    --popover: 0 0% 100%; /* White */
+    --popover-foreground: 222.2 84% 4.9%; /* Dark Gray/Black */
+
+    --card: 0 0% 100%; /* White */
+    --card-foreground: 222.2 84% 4.9%; /* Dark Gray/Black */
+
+    --border: 240 5.9% 90%; /* Light Gray border */
+    --input: 240 5.9% 90%; /* Light Gray input background */
+
+    --primary: 222.2 47.4% 11.2%; /* Dark Blue - similar to original dark theme secondary */
+    --primary-foreground: 210 40% 98%; /* Light text for primary */
+
+    --secondary: 240 4.8% 95.9%; /* Light Gray for secondary elements */
+    --secondary-foreground: 222.2 47.4% 11.2%; /* Dark text on light secondary button */
+
+    --accent: 240 4.8% 95.9%; /* Light Gray */
+    --accent-foreground: 222.2 47.4% 11.2%; /* Dark text */
+
+    --destructive: 0 84.2% 60.2%; /* Red */
+    --destructive-foreground: 0 0% 98%; /* Light text */
+
+    --ring: 222.2 84% 4.9%; /* Dark Gray/Black for focus rings in light mode */
+
+    --radius: 0.5rem;
+
+    /* Chart and Sidebar colors for light theme (can be adjusted) */
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --sidebar-background: 240 5.9% 95%; /* Light gray for sidebar */
+    --sidebar-foreground: 240 10% 3.9%; /* Dark text for sidebar */
+    --sidebar-primary: 222.2 47.4% 11.2%; /* Dark Blue */
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 90%; /* Lighter gray for accent */
+    --sidebar-accent-foreground: 240 10% 3.9%;
+    --sidebar-border: 240 5.9% 85%;
+    --sidebar-ring: 222.2 84% 4.9%;
+  }
+
+  .dark {
+    /* Dark Theme Overrides - Inspired by Chess.com */
+    --background: 30 4% 14%; /* Dark Gray - e.g., #262421 */
+    --foreground: 30 9% 90%; /* Light Gray - e.g., #E8E6E4 */
+
+    --muted: 30 4% 22%; /* Slightly lighter dark gray - e.g., #3D3B39 */
+    --muted-foreground: 40 2% 62%; /* Medium Gray for muted text - e.g., #9E9D9B */
+
+    --popover: 30 4% 10%; /* Very Dark Gray for popovers - e.g., #1C1B1A */
+    --popover-foreground: 30 9% 90%; /* Light Gray */
+
+    --card: 30 4% 18%; /* Lighter Dark Gray for cards - e.g., #302E2C */
+    --card-foreground: 30 9% 90%; /* Light Gray */
+
+    --border: 30 2% 28%; /* Darker Gray for borders - e.g., #4A4846 */
+    --input: 30 2% 28%; /* Same as border for input fields */
+
+    --primary: 90 40% 51%; /* Green Accent - e.g., #81B64C */
+    --primary-foreground: 0 0% 98%; /* White text for dark theme primary buttons */
+
+    --secondary: 30 4% 25%; /* Darker shade for secondary elements - e.g., #454240 */
+    --secondary-foreground: 30 9% 80%; /* Slightly dimmer light gray */
+
+    --accent: 90 40% 45%; /* Slightly darker Green for hover/accent */
+    --accent-foreground: 0 0% 98%; /* White text */
+
+    --destructive: 0 70% 50%; /* Brighter Red for destructive actions */
+    --destructive-foreground: 0 0% 98%; /* White text */
+
+    --ring: 90 40% 55%; /* Brighter Green for focus rings */
+    
+    /* Chart and Sidebar colors for dark theme */
+    --chart-1: 210 80% 60%;
+    --chart-2: 170 70% 55%;
+    --chart-3: 40 90% 65%;
+    --chart-4: 290 75% 70%;
+    --chart-5: 350 85% 65%;
+    --sidebar-background: 240 5.9% 10%; 
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 90 40% 51%; 
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 30 4% 22%;
+    --sidebar-accent-foreground: 30 9% 90%;
+    --sidebar-border: 30 2% 28%;
+    --sidebar-ring: 90 40% 51%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

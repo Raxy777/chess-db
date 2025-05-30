@@ -1,0 +1,502 @@
+[
+  {
+    "id": "ruy-lopez",
+    "name": "Ruy Lopez",
+    "description": "Also known as the Spanish Opening, the Ruy Lopez is one of the oldest and most classic chess openings. It begins with 1.e4 e5 2.Nf3 Nc6 3.Bb5, where White develops naturally and puts pressure on Black's knight defending e5.",
+    "fen": "r1bqkbnr/pppp1ppp/2n5/1B2p3/4P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 3 3",
+    "category": "Open Games",
+    "popularity": "Very High",
+    "firstMove": "White",
+    "statistics": {
+      "totalGames": 125000,
+      "whiteWins": 42.5,
+      "draws": 35.2,
+      "blackWins": 22.3,
+      "averageRating": 2150,
+      "popularMoves": [
+        {
+          "move": "a6",
+          "san": "a6",
+          "frequency": 68.5,
+          "whiteWinRate": 41.2,
+          "drawRate": 36.8,
+          "blackWinRate": 22.0,
+          "description": "Morphy Defense - Most popular continuation"
+        },
+        {
+          "move": "f5",
+          "san": "f5",
+          "frequency": 12.3,
+          "whiteWinRate": 48.1,
+          "drawRate": 28.4,
+          "blackWinRate": 23.5,
+          "description": "Schliemann Defense - Aggressive counterplay"
+        },
+        {
+          "move": "Nf6",
+          "san": "Nf6",
+          "frequency": 8.7,
+          "whiteWinRate": 45.3,
+          "drawRate": 32.1,
+          "blackWinRate": 22.6,
+          "description": "Berlin Defense - Solid and drawish"
+        },
+        {
+          "move": "Be7",
+          "san": "Be7",
+          "frequency": 6.2,
+          "whiteWinRate": 44.8,
+          "drawRate": 33.5,
+          "blackWinRate": 21.7,
+          "description": "Hungarian Defense - Passive but solid"
+        }
+      ]
+    },
+    "mainLineMoves": [
+      "e2e4",
+      "e7e5",
+      "g1f3",
+      "b8c6",
+      "f1b5"
+    ],
+    "traps": [
+      {
+        "name": "Mortimer Trap",
+        "moveSequenceToTrigger": [
+          "e2e4",
+          "e7e5",
+          "g1f3",
+          "b8c6",
+          "f1b5",
+          "g8f6"
+        ],
+        "triggerMove": "d2d3",
+        "trapMove": "c6e7",
+        "correctContinuation": [
+          "f3e5"
+        ],
+        "description": "A common beginner trap in the Berlin Defense of the Ruy Lopez. Black's Ne7 blunders a central pawn after White's d3.",
+        "penalty": 100
+      }
+    ],
+    "namedVariations": [
+      {
+        "name": "Morphy Defense",
+        "moveSequence": [
+          "e2e4",
+          "e7e5",
+          "g1f3",
+          "b8c6",
+          "f1b5",
+          "a7a6"
+        ],
+        "shortDescription": "The most common reply, challenging the Ruy Lopez bishop.",
+        "fen": "r1bqkbnr/1ppp1ppp/p1n5/1B2p3/4P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 4"
+      },
+      {
+        "name": "Berlin Defense",
+        "moveSequence": [
+          "e2e4",
+          "e7e5",
+          "g1f3",
+          "b8c6",
+          "f1b5",
+          "g8f6"
+        ],
+        "shortDescription": "A solid and drawish line, often leading to an early queen exchange.",
+        "fen": "r1bqkb1r/pppp1ppp/2n2n2/1B2p3/4P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4"
+      }
+    ],
+    "keyIdeasWhite": [
+      "Control the center with d2-d4.",
+      "Develop pieces actively, often with Nc3 and castling kingside.",
+      "Maintain pressure on Black's e5-pawn and potentially exploit the pin on the c6-knight.",
+      "Prepare for kingside attacking chances in many lines."
+    ],
+    "keyIdeasBlack": [
+      "Solidify the e5-pawn, often with ...d6 or ...Nf6.",
+      "Break the pin on the c6-knight with ...a6 followed by ...b5 or ...Nge7.",
+      "Aim for counterplay on the queenside or in the center with ...d5.",
+      "Develop pieces to safe squares and castle."
+    ],
+    "historicalNotes": "Named after the 16th-century Spanish priest Ruy L\u00f3pez de Segura. It has been a favorite of World Champions for centuries due to its rich strategic and tactical possibilities."
+  },
+  {
+    "id": "italian-game",
+    "name": "Italian Game",
+    "description": "The Italian Game begins with 1.e4 e5 2.Nf3 Nc6 3.Bc4, where White develops the bishop to a strong diagonal targeting f7. It leads to open positions with tactical opportunities for both sides.",
+    "fen": "r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 3 3",
+    "category": "Open Games",
+    "popularity": "High",
+    "firstMove": "White",
+    "statistics": {
+      "totalGames": 89000,
+      "whiteWins": 38.7,
+      "draws": 32.1,
+      "blackWins": 29.2,
+      "averageRating": 2050,
+      "popularMoves": [
+        {
+          "move": "Bc5",
+          "san": "Bc5",
+          "frequency": 45.2,
+          "whiteWinRate": 37.8,
+          "drawRate": 33.4,
+          "blackWinRate": 28.8,
+          "description": "Italian Game proper - Classical development"
+        },
+        {
+          "move": "f5",
+          "san": "f5",
+          "frequency": 18.6,
+          "whiteWinRate": 42.1,
+          "drawRate": 26.3,
+          "blackWinRate": 31.6,
+          "description": "Rousseau Gambit - Sharp and risky"
+        },
+        {
+          "move": "Be7",
+          "san": "Be7",
+          "frequency": 15.3,
+          "whiteWinRate": 39.5,
+          "drawRate": 34.2,
+          "blackWinRate": 26.3,
+          "description": "Hungarian Defense - Solid setup"
+        },
+        {
+          "move": "Nf6",
+          "san": "Nf6",
+          "frequency": 12.4,
+          "whiteWinRate": 38.9,
+          "drawRate": 31.7,
+          "blackWinRate": 29.4,
+          "description": "Two Knights Defense - Complex play"
+        }
+      ]
+    },
+    "mainLineMoves": [
+      "e2e4",
+      "e7e5",
+      "g1f3",
+      "b8c6",
+      "f1c4"
+    ],
+    "traps": [
+      {
+        "name": "Legal's Mate Trap",
+        "moveSequenceToTrigger": [
+          "e2e4",
+          "e7e5",
+          "g1f3",
+          "b8c6",
+          "f1c4",
+          "d7d6",
+          "b1c3",
+          "c8g4",
+          "h2h3"
+        ],
+        "triggerMove": "g4h5",
+        "trapMove": "f3e5",
+        "correctContinuation": [
+          "g4d1",
+          "c4f7",
+          "e8e7",
+          "c3d5#"
+        ],
+        "description": "A classic trap where White sacrifices the queen to deliver checkmate with minor pieces.",
+        "penalty": 500
+      }
+    ],
+    "namedVariations": [
+      {
+        "name": "Giuoco Piano",
+        "moveSequence": [
+          "e2e4",
+          "e7e5",
+          "g1f3",
+          "b8c6",
+          "f1c4",
+          "f8c5"
+        ],
+        "shortDescription": "The 'Quiet Game', leading to classical development and positional play.",
+        "fen": "r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4"
+      },
+      {
+        "name": "Evans Gambit",
+        "moveSequence": [
+          "e2e4",
+          "e7e5",
+          "g1f3",
+          "b8c6",
+          "f1c4",
+          "f8c5",
+          "b2b4"
+        ],
+        "shortDescription": "A dynamic gambit where White sacrifices a pawn for rapid development and attacking chances.",
+        "fen": "r1bqk1nr/pppp1ppp/2n5/2b1p3/1PB1P3/5N2/P1PP1PPP/RNBQK2R b KQkq - 0 4"
+      },
+      {
+        "name": "Two Knights Defense",
+        "moveSequence": [
+          "e2e4",
+          "e7e5",
+          "g1f3",
+          "b8c6",
+          "f1c4",
+          "g8f6"
+        ],
+        "shortDescription": "Black counterattacks immediately against e4, leading to sharp play.",
+        "fen": "r1bqkb1r/pppp1ppp/2n2n2/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4"
+      }
+    ],
+    "keyIdeasWhite": [
+      "Control the center, especially the d4 square.",
+      "Develop pieces quickly and prepare to castle kingside.",
+      "Attack Black's f7 pawn, a traditional weak point."
+    ],
+    "keyIdeasBlack": [
+      "Develop pieces to support the e5 pawn.",
+      "Prepare ...d5 to equalize in the center.",
+      "Castle kingside for safety."
+    ],
+    "historicalNotes": "One of the oldest recorded openings, appearing in manuscripts from the 15th century. It emphasizes rapid development and central control."
+  },
+  {
+    "id": "sicilian-defense",
+    "name": "Sicilian Defense",
+    "description": "The Sicilian Defense is Black's most popular response to 1.e4, occurring in roughly 25% of all chess games. With 1.e4 c5, Black immediately fights for the center and creates an asymmetrical pawn structure leading to complex positions.",
+    "fen": "rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2",
+    "category": "Semi-Open Games",
+    "popularity": "Very High",
+    "firstMove": "Black",
+    "statistics": {
+      "totalGames": 180000,
+      "whiteWins": 35.8,
+      "draws": 28.4,
+      "blackWins": 35.8,
+      "averageRating": 2200,
+      "popularMoves": [
+        {
+          "move": "Nf3",
+          "san": "Nf3",
+          "frequency": 52.3,
+          "whiteWinRate": 36.2,
+          "drawRate": 29.1,
+          "blackWinRate": 34.7,
+          "description": "Open Sicilian - Most principled continuation"
+        },
+        {
+          "move": "Nc3",
+          "san": "Nc3",
+          "frequency": 18.7,
+          "whiteWinRate": 34.8,
+          "drawRate": 27.6,
+          "blackWinRate": 37.6,
+          "description": "Closed Sicilian - Positional approach"
+        },
+        {
+          "move": "f4",
+          "san": "f4",
+          "frequency": 8.9,
+          "whiteWinRate": 37.2,
+          "drawRate": 25.8,
+          "blackWinRate": 37.0,
+          "description": "Grand Prix Attack - Aggressive setup"
+        },
+        {
+          "move": "c3",
+          "san": "c3",
+          "frequency": 7.4,
+          "whiteWinRate": 35.1,
+          "drawRate": 30.2,
+          "blackWinRate": 34.7,
+          "description": "Alapin Variation - Central control"
+        }
+      ]
+    },
+    "mainLineMoves": [
+      "e2e4",
+      "c7c5"
+    ],
+    "traps": [
+      {
+        "name": "Siberian Trap",
+        "moveSequenceToTrigger": [
+          "e2e4",
+          "c7c5",
+          "g1f3",
+          "b8c6",
+          "d2d4",
+          "c5d4",
+          "f3d4",
+          "e7e5",
+          "d4b5",
+          "d7d6",
+          "c2c4",
+          "g8f6",
+          "b1c3",
+          "a7a6",
+          "b5a3",
+          "d6d5",
+          "c4d5",
+          "c6d4"
+        ],
+        "triggerMove": "a3c2",
+        "trapMove": "d8b6",
+        "correctContinuation": [
+          "c2d4",
+          "e5d4",
+          "d1a4",
+          "c8d7",
+          "a4b3",
+          "d4c3"
+        ],
+        "description": "A trap in the Chekhover Sicilian where White greedily tries to win a pawn and falls into tactical complications.",
+        "penalty": 150
+      }
+    ],
+    "namedVariations": [
+      {
+        "name": "Najdorf Variation",
+        "moveSequence": [
+          "e2e4",
+          "c7c5",
+          "g1f3",
+          "d7d6",
+          "d2d4",
+          "c5d4",
+          "f3d4",
+          "g8f6",
+          "b1c3",
+          "a7a6"
+        ],
+        "shortDescription": "One of the most popular and deeply analyzed variations, offering Black dynamic counterplay.",
+        "fen": "rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6"
+      },
+      {
+        "name": "Dragon Variation",
+        "moveSequence": [
+          "e2e4",
+          "c7c5",
+          "g1f3",
+          "d7d6",
+          "d2d4",
+          "c5d4",
+          "f3d4",
+          "g8f6",
+          "b1c3",
+          "g7g6"
+        ],
+        "shortDescription": "Characterized by Black's fianchetto of the kingside bishop, leading to sharp, tactical battles.",
+        "fen": "rnbqkb1r/pp2pp1p/3p1np1/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6"
+      }
+    ],
+    "keyIdeasWhite": [
+      "Fight for central control, often with d2-d4.",
+      "Develop quickly and exploit Black's potential king safety issues in open Sicilians.",
+      "In closed variations, build up a slow kingside attack or control central squares."
+    ],
+    "keyIdeasBlack": [
+      "Create an imbalance in the pawn structure and fight for the d4 square.",
+      "Seek counterplay on the queenside, often using the semi-open c-file.",
+      "Develop pieces actively to challenge White's central dominance."
+    ],
+    "historicalNotes": "The Sicilian Defense is Black's most popular and highest-scoring response to 1.e4. It leads to complex and aggressive positions, favored by players seeking a decisive game."
+  },
+  {
+    "id": "french-defense",
+    "name": "French Defense",
+    "description": "The French Defense begins with 1.e4 e6, where Black prepares to challenge White's center with d5. It typically leads to closed positions with a solid but somewhat cramped position for Black.",
+    "fen": "rnbqkbnr/pppp1ppp/4p3/8/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2",
+    "category": "Semi-Open Games",
+    "popularity": "High",
+    "firstMove": "Black",
+    "statistics": {
+      "totalGames": 95000,
+      "whiteWins": 40.2,
+      "draws": 35.8,
+      "blackWins": 24.0,
+      "averageRating": 2180,
+      "popularMoves": [
+        {
+          "move": "d4",
+          "san": "d4",
+          "frequency": 78.5,
+          "whiteWinRate": 40.8,
+          "drawRate": 36.2,
+          "blackWinRate": 23.0,
+          "description": "Main line - Classical approach"
+        },
+        {
+          "move": "Nf3",
+          "san": "Nf3",
+          "frequency": 12.3,
+          "whiteWinRate": 38.1,
+          "drawRate": 34.5,
+          "blackWinRate": 27.4,
+          "description": "King's Indian Attack setup"
+        },
+        {
+          "move": "Nc3",
+          "san": "Nc3",
+          "frequency": 5.8,
+          "whiteWinRate": 39.2,
+          "drawRate": 33.8,
+          "blackWinRate": 27.0,
+          "description": "Two Knights variation"
+        },
+        {
+          "move": "f4",
+          "san": "f4",
+          "frequency": 2.1,
+          "whiteWinRate": 42.5,
+          "drawRate": 28.3,
+          "blackWinRate": 29.2,
+          "description": "La Bourdonnais variation"
+        }
+      ]
+    },
+    "mainLineMoves": [
+      "e2e4",
+      "e7e6"
+    ],
+    "traps": [],
+    "namedVariations": [
+      {
+        "name": "Advance Variation",
+        "moveSequence": [
+          "e2e4",
+          "e7e6",
+          "d2d4",
+          "d7d5",
+          "e4e5"
+        ],
+        "shortDescription": "White gains space in the center, leading to a closed position.",
+        "fen": "rnbqkbnr/ppp2ppp/4p3/3pP3/3P4/8/PPP2PPP/RNBQKBNR b KQkq - 0 3"
+      },
+      {
+        "name": "Tarrasch Variation",
+        "moveSequence": [
+          "e2e4",
+          "e7e6",
+          "d2d4",
+          "d7d5",
+          "b1d2"
+        ],
+        "shortDescription": "White develops the knight to d2, maintaining flexibility.",
+        "fen": "rnbqkbnr/ppp2ppp/4p3/3p4/3PP3/8/PPPN1PPP/R1BQKBNR b KQkq - 1 3"
+      }
+    ],
+    "keyIdeasWhite": [
+      "Secure the e5 pawn if playing the Advance Variation.",
+      "Develop pieces to attack Black's cramped position.",
+      "Often involves play on the kingside."
+    ],
+    "keyIdeasBlack": [
+      "Challenge White's center with ...c5.",
+      "Activate the light-squared bishop, often via ...b6 and ...Ba6 or ...Bd7-c6.",
+      "Seek counterplay on the queenside or by undermining White's central pawns."
+    ],
+    "historicalNotes": "A solid and resilient defense for Black, known for its characteristic pawn structure. It was championed by players like Botvinnik and Korchnoi."
+  }
+]
