@@ -1,0 +1,136 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum OpeningCategory {
+  OPEN
+  SEMI_OPEN
+  CLOSED
+  INDIAN
+  FLANK
+  IRREGULAR
+}
+
+model OpeningFamily {
+  id              String          @id @default(cuid())
+  slug            String          @unique
+  name            String          @unique
+  category        OpeningCategory @default(OPEN)
+  ecoStart        String?
+  ecoEnd          String?
+  description     String          @default("")
+  popularity      String          @default("Unknown")
+  historicalNotes String          @default("")
+  whiteFirst      String?
+  lineCount       Int             @default(0)
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  openings        Opening[]
+  keyIdeas        KeyIdea[]
+  positions       Position[]
+}
+
+model Opening {
+  id           String          @id @default(cuid())
+  slug         String          @unique
+  eco          String?
+  name         String
+  familyId     String
+  family       OpeningFamily   @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  variation    String?
+  subVariation String?
+  pgn          String
+  sanMoves     String          @default("[]")
+  uciMoves     String          @default("[]")
+  epds         String          @default("[]")
+  fen          String
+  epd          String
+  ply          Int             @default(0)
+  whiteFirst   String?
+  category     OpeningCategory @default(OPEN)
+  description  String          @default("")
+  createdAt    DateTime        @default(now())
+
+  traps      Trap[]
+  variations NamedVariation[]
+
+  @@index([familyId])
+  @@index([eco])
+  @@index([epd])
+  @@index([name])
+  @@index([category])
+  @@index([ply])
+}
+
+model Position {
+  epd               String          @id
+  fen               String
+  ply               Int             @default(0)
+  eco               String?
+  familyId          String?
+  family            OpeningFamily?  @relation(fields: [familyId], references: [id], onDelete: SetNull)
+  canonicalOpeningId String?
+  canonicalName     String?
+  totalLines        Int             @default(0)
+  children          PositionMove[]  @relation("FromPosition")
+  parents           PositionMove[]  @relation("ToPosition")
+
+  @@index([familyId])
+  @@index([ply])
+}
+
+model PositionMove {
+  id           String   @id @default(cuid())
+  fromEpd      String
+  from         Position @relation("FromPosition", fields: [fromEpd], references: [epd], onDelete: Cascade)
+  san          String
+  uci          String
+  toEpd        String
+  to           Position @relation("ToPosition", fields: [toEpd], references: [epd], onDelete: Cascade)
+  openingCount Int      @default(0)
+
+  @@unique([fromEpd, uci])
+  @@index([fromEpd])
+  @@index([toEpd])
+}
+
+model KeyIdea {
+  id       String        @id @default(cuid())
+  familyId String
+  family   OpeningFamily @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  side     String
+  text     String
+
+  @@index([familyId])
+}
+
+model Trap {
+  id          String  @id @default(cuid())
+  openingId   String
+  opening     Opening @relation(fields: [openingId], references: [id], onDelete: Cascade)
+  name        String
+  description String  @default("")
+  triggerUci  String?
+  trapSan     String?
+  sequenceSan String  @default("[]")
+  penalty     Int     @default(0)
+
+  @@index([openingId])
+}
+
+model NamedVariation {
+  id          String  @id @default(cuid())
+  openingId   String
+  opening     Opening @relation(fields: [openingId], references: [id], onDelete: Cascade)
+  name        String
+  sanMoves    String  @default("[]")
+  fen         String  @default("")
+  description String  @default("")
+
+  @@index([openingId])
+}

@@ -18,6 +18,12 @@ yarn-error.log*
 
 # env files
 .env*
+!.env.example
+
+# sqlite
+*.db
+*.db-journal
+prisma/dev.db*
 
 # vercel
 .vercel
