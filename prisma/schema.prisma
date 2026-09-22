@@ -58,6 +58,7 @@ model Opening {
 
   traps      Trap[]
   variations NamedVariation[]
+  positions  OpeningPosition[]
 
   @@index([familyId])
   @@index([eco])
@@ -65,6 +66,20 @@ model Opening {
   @@index([name])
   @@index([category])
   @@index([ply])
+}
+
+/** Membership edge: which openings pass through a given position (EPD).
+ * Replaces scanning the JSON `epds` column with `contains`. */
+model OpeningPosition {
+  id        String  @id @default(cuid())
+  openingId String
+  opening   Opening @relation(fields: [openingId], references: [id], onDelete: Cascade)
+  epd       String
+  ply       Int     @default(0)
+
+  @@unique([openingId, epd])
+  @@index([epd])
+  @@index([openingId])
 }
 
 model Position {

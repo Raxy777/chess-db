@@ -4,10 +4,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { getOpeningBySlug, getPositionExplorer } from "@/lib/openings-repo";
+import { getAllOpeningSlugs, getOpeningBySlug, getPositionExplorer } from "@/lib/openings-repo";
+import { serialize } from "@/lib/format";
 import { OpeningBoardExplorer } from "@/components/opening-board-explorer";
 
-export const dynamic = "force-dynamic";
+export async function generateStaticParams() {
+  const openings = await getAllOpeningSlugs();
+  return openings.map((o) => ({ slug: o.slug }));
+}
 
 export default async function OpeningPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -15,12 +19,10 @@ export default async function OpeningPage({ params }: { params: Promise<{ slug: 
   if (!opening) notFound();
 
   const explorer = await getPositionExplorer(opening.epd);
-  const ser = (o: unknown) => JSON.parse(JSON.stringify(o));
-  const o = ser(opening) as NonNullable<typeof opening>;
-  const ex = ser(explorer) as Awaited<ReturnType<typeof getPositionExplorer>>;
+  const o = serialize(opening);
+  const ex = serialize(explorer);
 
   const sans: string[] = JSON.parse(o.sanMoves as unknown as string);
-  const ucis: string[] = JSON.parse(o.uciMoves as unknown as string);
   const epds: string[] = JSON.parse(o.epds as unknown as string);
 
   return (
@@ -52,12 +54,9 @@ export default async function OpeningPage({ params }: { params: Promise<{ slug: 
 
         <OpeningBoardExplorer
           sans={sans}
-          ucis={ucis}
           epds={epds}
           finalFen={o.fen}
-          children={ex?.position?.children ?? []}
-          linesThrough={ex?.linesThrough ?? []}
-          currentSlug={o.slug}
+          moves={ex?.position?.children ?? []}
         />
 
         <Tabs defaultValue="theory" className="w-full">

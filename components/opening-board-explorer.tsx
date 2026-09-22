@@ -6,16 +6,15 @@ import { Chess } from "chess.js";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { formatSans } from "@/lib/format";
 
 interface Child {
   san: string; uci: string; openingCount: number;
   to: { epd: string; fen: string; canonicalName: string | null };
 }
-interface Line { slug: string; name: string; eco: string | null }
 
-export function OpeningBoardExplorer({ sans, ucis, epds, finalFen, children, linesThrough, currentSlug }: {
-  sans: string[]; ucis: string[]; epds: string[]; finalFen: string;
-  children: Child[]; linesThrough: Line[]; currentSlug: string;
+export function OpeningBoardExplorer({ sans, epds, finalFen, moves }: {
+  sans: string[]; epds: string[]; finalFen: string; moves: Child[];
 }) {
   const [ply, setPly] = useState(sans.length);
 
@@ -47,14 +46,14 @@ export function OpeningBoardExplorer({ sans, ucis, epds, finalFen, children, lin
       <Card className="lg:col-span-2">
         <CardHeader><CardTitle className="text-base">Theory from final position</CardTitle></CardHeader>
         <CardContent className="space-y-2 max-h-[480px] overflow-auto">
-          {children.map((c) => (
+          {moves.map((c) => (
             <Link key={c.uci} href={`/explore?epd=${encodeURIComponent(c.to.epd)}`}>
               <div className="border rounded px-3 py-2 text-sm hover:border-primary">
                 <b className="font-mono">{c.san}</b> <span className="text-muted-foreground">· {c.openingCount} lines</span>
               </div>
             </Link>
           ))}
-          {children.length === 0 && <p className="text-sm text-muted-foreground">No further recorded moves.</p>}
+          {moves.length === 0 && <p className="text-sm text-muted-foreground">No further recorded moves.</p>}
           <div className="pt-2 text-xs text-muted-foreground">
             EPD: <span className="font-mono break-all">{epds[epds.length - 1]}</span>
           </div>
@@ -62,10 +61,4 @@ export function OpeningBoardExplorer({ sans, ucis, epds, finalFen, children, lin
       </Card>
     </div>
   );
-}
-
-function formatSans(sans: string[]) {
-  let s = "";
-  for (let i = 0; i < sans.length; i++) s += (i % 2 === 0 ? `${i / 2 + 1}. ` : "") + sans[i] + " ";
-  return s.trim();
 }

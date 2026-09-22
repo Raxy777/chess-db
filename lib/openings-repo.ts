@@ -76,12 +76,14 @@ export async function getPositionExplorer(epd: string) {
     },
   });
   if (!position) return null;
-  const linesThrough = await db.opening.findMany({
-    where: { epds: { contains: epd } },
-    include: { family: true },
-    orderBy: [{ ply: "asc" }],
+  // Indexed membership lookup (OpeningPosition) instead of a `contains` scan over the JSON `epds` column.
+  const links = await db.openingPosition.findMany({
+    where: { epd },
+    include: { opening: { include: { family: true } } },
+    orderBy: { opening: { ply: "asc" } },
     take: 30,
   });
+  const linesThrough = links.map((l) => l.opening);
   return { position, linesThrough };
 }
 
@@ -93,4 +95,13 @@ export async function getStats() {
     db.positionMove.count(),
   ]);
   return { families, openings, positions, moves };
+}
+
+/** Slugs for static generation (generateStaticParams). */
+export async function getAllOpeningSlugs() {
+  return db.opening.findMany({ select: { slug: true } });
+}
+
+export async function getAllFamilySlugs() {
+  return db.openingFamily.findMany({ select: { slug: true } });
 }

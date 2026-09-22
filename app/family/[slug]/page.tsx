@@ -4,18 +4,21 @@ import { StaticBoard } from "@/components/static-board";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { getFamilyBySlug } from "@/lib/openings-repo";
+import { getAllFamilySlugs, getFamilyBySlug } from "@/lib/openings-repo";
 import { CATEGORY_LABEL } from "@/lib/taxonomy";
+import { formatSans, serialize } from "@/lib/format";
 
-export const dynamic = "force-dynamic";
+export async function generateStaticParams() {
+  const families = await getAllFamilySlugs();
+  return families.map((f) => ({ slug: f.slug }));
+}
 
 export default async function FamilyPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const family = await getFamilyBySlug(slug);
   if (!family) notFound();
 
-  const ser = (o: unknown) => JSON.parse(JSON.stringify(o)) as typeof family;
-  const f = ser(family);
+  const f = serialize(family);
 
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col">
@@ -77,10 +80,4 @@ export default async function FamilyPage({ params }: { params: Promise<{ slug: s
       </main>
     </div>
   );
-}
-
-function formatSans(sans: string[]) {
-  let s = "";
-  for (let i = 0; i < sans.length; i++) s += (i % 2 === 0 ? `${i / 2 + 1}. ` : "") + sans[i] + " ";
-  return s.trim();
 }

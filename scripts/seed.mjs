@@ -2,46 +2,19 @@ import fs from "node:fs";
 import path from "node:path";
 import { PrismaClient } from "@prisma/client";
 import { Chess } from "chess.js";
+import {
+  toEpd,
+  slugify,
+  parseOpeningName,
+  whiteFirstOf,
+  categorize,
+  START_FEN,
+  START_EPD,
+} from "../lib/opening-core.mjs";
 
 const prisma = new PrismaClient();
 const DATA_DIR = path.join(process.cwd(), "app", "data");
-const START_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
-const START_EPD = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -";
 
-function toEpd(fen) {
-  return fen.split(" ").slice(0, 4).join(" ");
-}
-function slugify(input, maxLen = 80) {
-  return input.toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, maxLen).replace(/-+$/, "");
-}
-function parseOpeningName(name) {
-  const idx = name.indexOf(":");
-  if (idx === -1) return { family: name.trim(), variation: null, subVariation: null };
-  const family = name.slice(0, idx).trim();
-  const rest = name.slice(idx + 1).trim();
-  const parts = rest.split(",").map((s) => s.trim()).filter(Boolean);
-  return { family, variation: parts[0] ?? null, subVariation: parts.length > 1 ? parts.slice(1).join(", ") : null };
-}
-function whiteFirstOf(sanMoves) {
-  const first = (sanMoves[0] ?? "").replace(/[+#]/g, "");
-  if (!first) return "other";
-  if (["e4", "d4", "c4", "Nf3", "g3", "f4", "b3"].includes(first)) return first;
-  return first;
-}
-function categorize(sanMoves) {
-  if (!sanMoves.length) return "IRREGULAR";
-  const w1 = (sanMoves[0] ?? "").replace(/[+#]/g, "");
-  const b1 = (sanMoves[1] ?? "").replace(/[+#]/g, "");
-  if (w1 === "e4") return b1 === "e5" ? "OPEN" : "SEMI_OPEN";
-  if (w1 === "d4") {
-    if (b1 === "d5") return "CLOSED";
-    if (b1 === "Nf6") return "INDIAN";
-    return "CLOSED";
-  }
-  if (["c4", "Nf3", "g3", "b3", "f4"].includes(w1)) return "FLANK";
-  return "IRREGULAR";
-}
 function tokenizePgn(pgn) {
   return pgn.split(/\s+/).map((t) => t.trim()).filter((t) => t && !/^\d+\.+$/.test(t) && !/^(1-0|0-1|1\/2-1\/2|\*)$/.test(t));
 }
@@ -98,6 +71,7 @@ async function main() {
   // Wipe
   await prisma.positionMove.deleteMany();
   await prisma.position.deleteMany();
+  await prisma.openingPosition.deleteMany();
   await prisma.trap.deleteMany();
   await prisma.namedVariation.deleteMany();
   await prisma.keyIdea.deleteMany();
@@ -289,6 +263,26 @@ async function main() {
     await prisma.positionMove.createMany({ data: edgeArr.slice(i, i + 500) });
     if (i % 2000 === 0) console.log(`Moves ${Math.min(i + 500, edgeArr.length)}/${edgeArr.length}`);
   }
+
+  // Opening <-> position membership: indexed lookup for "other lines through this EPD"
+  console.log("Building opening-position membership...");
+  const memRows = [];
+  for (const o of allOpenings) {
+    let epds;
+    try { epds = JSON.parse(o.epds); } catch { continue; }
+    const seen = new Set();
+    for (let ply = 0; ply < epds.length; ply++) {
+      const epd = epds[ply];
+      if (seen.has(epd)) continue; // unique [openingId, epd]
+      seen.add(epd);
+      memRows.push({ openingId: o.id, epd, ply });
+    }
+  }
+  for (let i = 0; i < memRows.length; i += 500) {
+    await prisma.openingPosition.createMany({ data: memRows.slice(i, i + 500) });
+    if (i % 4000 === 0) console.log(`Membership ${Math.min(i + 500, memRows.length)}/${memRows.length}`);
+  }
+  console.log(`Membership rows: ${memRows.length}`);
 
   const stats = { families: await prisma.openingFamily.count(), openings: await prisma.opening.count(), positions: await prisma.position.count(), moves: await prisma.positionMove.count() };
   console.log("Done:", stats);

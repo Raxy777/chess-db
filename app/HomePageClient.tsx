@@ -8,7 +8,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { BookOpen, Filter, Database, GitBranch, Layers, Search } from "lucide-react";
-import { CATEGORY_LABEL } from "@/lib/taxonomy";
+import { CATEGORY_LABEL, WHITE_FIRST_MOVES } from "@/lib/taxonomy";
+import { formatSans } from "@/lib/format";
 
 interface Props {
   stats: { families: number; openings: number; positions: number; moves: number };
@@ -106,8 +107,9 @@ export function HomePageClient(p: Props) {
           onSubmit={(e) => { e.preventDefault(); push({ q }); }}
         >
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+            <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" aria-hidden="true" />
             <input
+              id="opening-search" type="search" aria-label="Search openings"
               value={q} onChange={(e) => setQ(e.target.value)}
               placeholder="Search Sicilian, Ruy Lopez, C11, Caro…"
               className="w-full bg-input border border-border rounded-md pl-9 pr-3 py-2 text-foreground"
@@ -123,30 +125,30 @@ export function HomePageClient(p: Props) {
           <Card className="mb-6">
             <CardContent className="pt-4 grid grid-cols-1 md:grid-cols-4 gap-4">
               <div>
-                <label className="text-xs text-muted-foreground">System</label>
-                <select value={p.category} onChange={(e) => push({ category: e.target.value })}
+                <label htmlFor="filter-system" className="text-xs text-muted-foreground">System</label>
+                <select id="filter-system" value={p.category} onChange={(e) => push({ category: e.target.value })}
                   className="w-full bg-input border border-border rounded-md px-3 py-2 mt-1">
                   {CATS.map((c) => <option key={c.v} value={c.v}>{c.l}</option>)}
                 </select>
               </div>
               <div>
-                <label className="text-xs text-muted-foreground">Family</label>
-                <select value={p.familySlug} onChange={(e) => push({ family: e.target.value })}
+                <label htmlFor="filter-family" className="text-xs text-muted-foreground">Family</label>
+                <select id="filter-family" value={p.familySlug} onChange={(e) => push({ family: e.target.value })}
                   className="w-full bg-input border border-border rounded-md px-3 py-2 mt-1">
                   <option value="all">All families</option>
                   {p.families.map((f) => <option key={f.slug} value={f.slug}>{f.name} ({f.lineCount})</option>)}
                 </select>
               </div>
               <div>
-                <label className="text-xs text-muted-foreground">ECO prefix (e.g. B9, C, D4)</label>
-                <input value={p.ecoPrefix} onChange={(e) => push({ eco: e.target.value, page: "1" })}
+                <label htmlFor="filter-eco" className="text-xs text-muted-foreground">ECO prefix (e.g. B9, C, D4)</label>
+                <input id="filter-eco" value={p.ecoPrefix} onChange={(e) => push({ eco: e.target.value, page: "1" })}
                   placeholder="B9" className="w-full bg-input border border-border rounded-md px-3 py-2 mt-1" />
               </div>
               <div>
-                <label className="text-xs text-muted-foreground">White first move</label>
-                <select value={p.whiteFirst} onChange={(e) => push({ whiteFirst: e.target.value })}
+                <label htmlFor="filter-white" className="text-xs text-muted-foreground">White first move</label>
+                <select id="filter-white" value={p.whiteFirst} onChange={(e) => push({ whiteFirst: e.target.value })}
                   className="w-full bg-input border border-border rounded-md px-3 py-2 mt-1">
-                  {["all", "e4", "d4", "c4", "Nf3", "g3", "f4"].map((w) => <option key={w} value={w}>{w === "all" ? "Any" : w}</option>)}
+                  {["all", ...WHITE_FIRST_MOVES, "other"].map((w) => <option key={w} value={w}>{w === "all" ? "Any" : w === "other" ? "Other" : w}</option>)}
                 </select>
               </div>
             </CardContent>
@@ -221,10 +223,4 @@ function LineCard({ o }: { o: Props["openings"][number] }) {
       </CardContent>
     </Card>
   );
-}
-
-function formatSans(sans: string[]) {
-  let s = "";
-  for (let i = 0; i < sans.length; i++) s += (i % 2 === 0 ? `${i / 2 + 1}. ` : "") + sans[i] + " ";
-  return s.trim();
 }

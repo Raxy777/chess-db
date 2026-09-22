@@ -2,17 +2,14 @@ import Link from "next/link";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { getPositionExplorer } from "@/lib/openings-repo";
+import { serialize } from "@/lib/format";
+import { START_EPD } from "@/lib/taxonomy";
 import { ExploreClient } from "@/components/explore-client";
-
-export const dynamic = "force-dynamic";
-
-const START_EPD = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -";
 
 export default async function ExplorePage({ searchParams }: { searchParams: Promise<{ epd?: string }> }) {
   const sp = await searchParams;
   const epd = sp.epd ? decodeURIComponent(sp.epd) : START_EPD;
   const data = await getPositionExplorer(epd);
-  const ser = (o: unknown) => JSON.parse(JSON.stringify(o));
 
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col">
@@ -33,7 +30,7 @@ export default async function ExplorePage({ searchParams }: { searchParams: Prom
             Unknown position <span className="font-mono">{epd}</span>. <Link href="/explore"><Button size="sm" variant="outline" className="ml-2">Back to start</Button></Link>
           </CardContent></Card>
         ) : (
-          <ExploreClient initialEpd={epd} initial={ser(data)} />
+          <ExploreClient initialEpd={epd} initial={serialize(data)} />
         )}
       </main>
     </div>

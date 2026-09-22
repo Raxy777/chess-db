@@ -1,5 +1,6 @@
 import { getFamiliesWithCounts, getOpeningsList, getStats } from "@/lib/openings-repo";
 import { HomePageClient } from "@/app/HomePageClient";
+import { serialize } from "@/lib/format";
 import type { OpeningCategory } from "@prisma/client";
 
 interface SearchParams {
@@ -11,8 +12,6 @@ interface SearchParams {
   page?: string;
   view?: string;
 }
-
-export const dynamic = "force-dynamic";
 
 export default async function HomePage({ searchParams }: { searchParams: Promise<SearchParams> }) {
   const sp = await searchParams;
@@ -31,14 +30,11 @@ export default async function HomePage({ searchParams }: { searchParams: Promise
     getOpeningsList({ query, category, familySlug, ecoPrefix, whiteFirst, page, perPage }),
   ]);
 
-  // Serialize for client (Prisma Dates -> strings)
-  const ser = (o: unknown) => JSON.parse(JSON.stringify(o));
-
   return (
     <HomePageClient
       stats={stats}
-      families={ser(families)}
-      openings={ser(list.openings)}
+      families={serialize(families)}
+      openings={serialize(list.openings)}
       total={list.total}
       totalPages={list.totalPages}
       page={page}
